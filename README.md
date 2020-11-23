@@ -1,6 +1,6 @@
 # Marquee
 
-A powerful implementation of Marquee(scrolling text or label) in SwitUI, which supports any content view, including text(label), image, video, etc.
+A powerful implementation of Marquee(scrolling text or label) in SwiftUI, which supports any content view, including text(label), image, video, etc.
 
 ## Features
 
@@ -10,6 +10,7 @@ A powerful implementation of Marquee(scrolling text or label) in SwitUI, which s
 - [x] Supports custom **direction**.
 
 ## Installation
+
 ### Swift Package Manager
 
 In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in the repo's url: <https://github.com/SwiftUIKit/Marquee>.
@@ -43,7 +44,6 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
         }
     }
 ```
-
 
 #### AttributedText
 
@@ -85,7 +85,7 @@ private struct TestMarquee: View {
     @State var duration: Double = 3.0
     @State var autoreverses: Bool = false
     @State var direction: MarqueeDirection = .right2left
-    
+
     var body: some View {
         VStack {
             Marquee {
@@ -105,22 +105,22 @@ private struct TestMarquee: View {
             .marqueeDuration(duration)
             .marqueeAutoreverses(autoreverses)
             .marqueeDirection(direction)
-            
+
             Spacer()
-            
+
             HStack {
                 Button(action: {
                     self.duration = (duration == 3.0) ? 1.0 : 3.0
                 }, label: {
                     Text("duration")
                 })
-                
+
                 Button(action: {
                     self.autoreverses.toggle()
                 }, label: {
                     Text("autoreverses")
                 })
-                
+
                 Button(action: {
                     self.direction = (direction == .left2right) ? .right2left : .left2right
                 }, label: {
