@@ -8,6 +8,8 @@ A powerful implementation of Marquee(scrolling text or label) in SwiftUI, which 
 - [x] Supports **autoreverses**.
 - [x] Supports custom **duration**.
 - [x] Supports custom **direction**.
+  - [x] left2right
+  - [x] right2left
 
 ## Installation
 
@@ -24,6 +26,10 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
 ![](./images/text.gif)
 
 ```swift
+import SwiftUI
+import Marquee
+
+struct ContentView: View {
     var body: some View {
         Marquee {
             Text("Hello World!")
@@ -31,6 +37,7 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
                 .font(.system(size: 40))
         }
     }
+}
 ```
 
 #### Image
@@ -38,11 +45,16 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
 ![](./images/image.gif)
 
 ```swift
+import SwiftUI
+import Marquee
+
+struct ContentView: View {
     var body: some View {
         Marquee {
             Image("test")
         }
     }
+}
 ```
 
 #### AttributedText
@@ -50,6 +62,10 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
 ![](./images/attributedText.gif)
 
 ```swift
+import SwiftUI
+import Marquee
+
+struct ContentView: View {
     var body: some View {
         Marquee {
             Text("Bold")
@@ -64,6 +80,7 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
                 .foregroundColor(.blue)
         }
     }
+}
 ```
 
 ### Animation Options
@@ -81,7 +98,10 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
 ![](./images/direction.gif)
 
 ```swift
-private struct TestMarquee: View {
+import SwiftUI
+import Marquee
+
+struct ContentView: View {
     @State var duration: Double = 3.0
     @State var autoreverses: Bool = false
     @State var direction: MarqueeDirection = .right2left
@@ -126,7 +146,7 @@ private struct TestMarquee: View {
                 }, label: {
                     Text("direction")
                 })
-            }
+            }.frame(height: 100)
         }.ignoresSafeArea()
     }
 }
