@@ -89,6 +89,10 @@ struct ContentView: View {
 
 ![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/duration.gif?raw=true)
 
+> Specially, when `duration` is equal to `0` or `Double.infinity`, the animation will stop and the view stays at the initial position.
+
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/idle.png?raw=true)
+
 - autoreverses
 
 ![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/autoreverses.gif?raw=true)
