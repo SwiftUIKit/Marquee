@@ -23,7 +23,7 @@ In Xcode go to `File -> Swift Packages -> Add Package Dependency` and paste in t
 
 #### Text（Label）
 
-![](./images/text.gif)
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/text.gif?raw=true)
 
 ```swift
 import SwiftUI
@@ -42,7 +42,7 @@ struct ContentView: View {
 
 #### Image
 
-![](./images/image.gif)
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/image.gif?raw=true)
 
 ```swift
 import SwiftUI
@@ -59,7 +59,7 @@ struct ContentView: View {
 
 #### AttributedText
 
-![](./images/attributedText.gif)
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/attributedText.gif?raw=true)
 
 ```swift
 import SwiftUI
@@ -87,15 +87,15 @@ struct ContentView: View {
 
 - duration
 
-![](./images/duration.gif)
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/duration.gif?raw=true)
 
 - autoreverses
 
-![](./images/autoreverses.gif)
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/autoreverses.gif?raw=true)
 
 - direction
 
-![](./images/direction.gif)
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/direction.gif?raw=true)
 
 ```swift
 import SwiftUI
