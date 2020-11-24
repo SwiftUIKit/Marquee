@@ -2,6 +2,8 @@
 
 A powerful implementation of Marquee(scrolling text or label) in SwiftUI, which supports any content view, including text(label), image, video, etc.
 
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/demo.gif?raw=true)
+
 Blog [SwiftUI: How to create a powerful Marquee?](https://catchzeng.medium.com/swiftui-how-to-create-a-powerful-marquee-625446c5197a)
 
 ## Features
