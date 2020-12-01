@@ -14,6 +14,7 @@ Blog [SwiftUI: How to create a powerful Marquee?](https://catchzeng.medium.com/s
 - [x] Supports custom **direction**.
   - [x] left2right
   - [x] right2left
+- [x] Marquee **when content view not fit**.
 
 ## Installation
 
@@ -105,6 +106,10 @@ struct ContentView: View {
 
 ![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/direction.gif?raw=true)
 
+- whenNotFit
+
+![](https://github.com/SwiftUIKit/assets/blob/master/Marquee/whenNotFit.gif?raw=true)
+
 ```swift
 import SwiftUI
 import Marquee
@@ -113,6 +118,7 @@ struct ContentView: View {
     @State var duration: Double = 3.0
     @State var autoreverses: Bool = false
     @State var direction: MarqueeDirection = .right2left
+    @State var whenNotFit: Bool = false
 
     var body: some View {
         VStack {
@@ -126,13 +132,14 @@ struct ContentView: View {
                         .font(.system(size: 30))
                         .underline()
                         .foregroundColor(.red)
-                        + Text(" Color")
+                        + Text(" Color cccccccccccccccc")
                         .foregroundColor(.blue)
                 }
             }.background(Color.white)
             .marqueeDuration(duration)
             .marqueeAutoreverses(autoreverses)
             .marqueeDirection(direction)
+            .marqueeWhenNotFit(whenNotFit)
 
             Spacer()
 
@@ -154,8 +161,25 @@ struct ContentView: View {
                 }, label: {
                     Text("direction")
                 })
+                
+                Button(action: {
+                    self.whenNotFit.toggle()
+                }, label: {
+                    Text("whenNotFit")
+                })
+
             }.frame(height: 100)
         }.ignoresSafeArea()
     }
 }
 ```
+
+## ChangeLog
+
+### v0.2.0
+
+- add marquee **when content view not fit**.
+
+### v0.1.0
+
+- add marquee.

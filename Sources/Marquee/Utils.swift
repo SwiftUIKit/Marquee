@@ -21,6 +21,10 @@ struct DirectionKey: EnvironmentKey {
     static var defaultValue: MarqueeDirection = .right2left
 }
 
+struct NotFitKey: EnvironmentKey {
+    static var defaultValue: Bool = false
+}
+
 extension EnvironmentValues {
     var marqueeDuration: Double {
         get {self[DurationKey.self]}
@@ -36,19 +40,68 @@ extension EnvironmentValues {
         get {self[DirectionKey.self]}
         set {self[DirectionKey.self] = newValue}
     }
+    
+    var marqueeWhenNotFit: Bool {
+        get {self[NotFitKey.self]}
+        set {self[NotFitKey.self] = newValue}
+    }
 }
 
 public extension View {
+    /// Sets the marquee animation duration to the given value.
+    ///
+    ///     Marquee {
+    ///         Text("Hello World!")
+    ///     }.marqueeDuration(3.0)
+    ///
+    /// - Parameters:
+    ///   - duration: Animation duration, default is `2.0`.
+    ///
+    /// - Returns: A view that has the given value set in its environment.
     func marqueeDuration(_ duration: Double) -> some View {
         environment(\.marqueeDuration, duration)
     }
     
+    /// Sets the marquee animation autoreverses to the given value.
+    ///
+    ///     Marquee {
+    ///         Text("Hello World!")
+    ///     }.marqueeAutoreverses(true)
+    ///
+    /// - Parameters:
+    ///   - autoreverses: Animation autoreverses, default is `false`.
+    ///
+    /// - Returns: A view that has the given value set in its environment.
     func marqueeAutoreverses(_ autoreverses: Bool) -> some View {
         environment(\.marqueeAutoreverses, autoreverses)
     }
     
+    /// Sets the marquee animation direction to the given value.
+    ///
+    ///     Marquee {
+    ///         Text("Hello World!")
+    ///     }.marqueeDirection(.right2left)
+    ///
+    /// - Parameters:
+    ///   - direction: `MarqueeDirection` enum, default is `right2left`.
+    ///
+    /// - Returns: A view that has the given value set in its environment.
     func marqueeDirection(_ direction: MarqueeDirection) -> some View {
         environment(\.marqueeDirection, direction)
+    }
+    
+    /// Sets the marquee animation when the content view is not fit.
+    ///
+    ///     Marquee {
+    ///         Text("Hello World!")
+    ///     }.marqueeDirection(.right2left)
+    ///
+    /// - Parameters:
+    ///   - whenNotFit: Animation when the content view is not fit, default is `false`.
+    ///
+    /// - Returns: A view that has the given value set in its environment.
+    func marqueeWhenNotFit(_ whenNotFit: Bool) -> some View {
+        environment(\.marqueeWhenNotFit, whenNotFit)
     }
 }
 
