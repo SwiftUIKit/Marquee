@@ -36,18 +36,16 @@ public struct Marquee<Content> : View where Content : View {
     public var body: some View {
         GeometryReader { proxy in
             VStack {
-                Spacer()
                 if isAppear {
                     content()
                         .background(GeometryBackground())
-                        .fixedSize(horizontal: true, vertical: false)
+                        .fixedSize()
                         .myOffset(x: offsetX(proxy: proxy), y: 0)
+                        .frame(maxHeight: .infinity)
                 } else {
                     Text("")
                 }
-                Spacer()
             }
-            // Listen content width changes
             .onPreferenceChange(WidthKey.self, perform: { value in
                 self.contentWidth = value
                 resetAnimation(duration: duration, autoreverses: autoreverses, proxy: proxy)

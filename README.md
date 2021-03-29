@@ -176,6 +176,10 @@ struct ContentView: View {
 
 ## ChangeLog
 
+### v0.2.1
+
+- fix: vertical alignment.
+
 ### v0.2.0
 
 - add marquee **when content view not fit**.
