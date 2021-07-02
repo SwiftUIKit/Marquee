@@ -140,6 +140,7 @@ struct ContentView: View {
             .marqueeAutoreverses(autoreverses)
             .marqueeDirection(direction)
             .marqueeWhenNotFit(whenNotFit)
+            .marqueeIdleAlignment(.leading)
 
             Spacer()
 
@@ -176,9 +177,13 @@ struct ContentView: View {
 
 ## ChangeLog
 
+### v0.3.0
+
+- add idle alignment.
+
 ### v0.2.1
 
-- fix: vertical alignment.
+- fix vertical alignment.
 
 ### v0.2.0
 

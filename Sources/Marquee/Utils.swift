@@ -21,8 +21,12 @@ struct DirectionKey: EnvironmentKey {
     static var defaultValue: MarqueeDirection = .right2left
 }
 
-struct NotFitKey: EnvironmentKey {
+struct StopWhenNotFitKey: EnvironmentKey {
     static var defaultValue: Bool = false
+}
+
+struct AlignmentKey: EnvironmentKey {
+    static var defaultValue: HorizontalAlignment = .leading
 }
 
 extension EnvironmentValues {
@@ -42,8 +46,13 @@ extension EnvironmentValues {
     }
     
     var marqueeWhenNotFit: Bool {
-        get {self[NotFitKey.self]}
-        set {self[NotFitKey.self] = newValue}
+        get {self[StopWhenNotFitKey.self]}
+        set {self[StopWhenNotFitKey.self] = newValue}
+    }
+    
+    var marqueeIdleAlignment: HorizontalAlignment {
+        get {self[AlignmentKey.self]}
+        set {self[AlignmentKey.self] = newValue}
     }
 }
 
@@ -90,18 +99,32 @@ public extension View {
         environment(\.marqueeDirection, direction)
     }
     
-    /// Sets the marquee animation when the content view is not fit.
+    /// Stop the marquee animation when the content view is not fit`(contentWidth < marqueeWidth)`.
     ///
     ///     Marquee {
     ///         Text("Hello World!")
-    ///     }.marqueeDirection(.right2left)
+    ///     }.marqueeWhenNotFit(true)
     ///
     /// - Parameters:
-    ///   - whenNotFit: Animation when the content view is not fit, default is `false`.
+    ///   - stopWhenNotFit: Stop the marquee animation when the content view is not fit(`contentWidth <  marqueeWidth`), default is `false`.
     ///
     /// - Returns: A view that has the given value set in its environment.
-    func marqueeWhenNotFit(_ whenNotFit: Bool) -> some View {
-        environment(\.marqueeWhenNotFit, whenNotFit)
+    func marqueeWhenNotFit(_ stopWhenNotFit: Bool) -> some View {
+        environment(\.marqueeWhenNotFit, stopWhenNotFit)
+    }
+    
+    /// Sets the marquee alignment  when idle(stop animation).
+    ///
+    ///     Marquee {
+    ///         Text("Hello World!")
+    ///     }.marqueeIdleAlignment(.center)
+    ///
+    /// - Parameters:
+    ///   - alignment: Alignment  when idle(stop animation), default is `.leading`.
+    ///
+    /// - Returns: A view that has the given value set in its environment.
+    func marqueeIdleAlignment(_ alignment: HorizontalAlignment) -> some View {
+        environment(\.marqueeIdleAlignment, alignment)
     }
 }
 

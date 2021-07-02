@@ -22,7 +22,8 @@ public struct Marquee<Content> : View where Content : View {
     @Environment(\.marqueeDuration) var duration
     @Environment(\.marqueeAutoreverses) var autoreverses: Bool
     @Environment(\.marqueeDirection) var direction: MarqueeDirection
-    @Environment(\.marqueeWhenNotFit) var whenNotFit: Bool
+    @Environment(\.marqueeWhenNotFit) var stopWhenNotFit: Bool
+    @Environment(\.marqueeIdleAlignment) var idleAlignment: HorizontalAlignment
     
     private var content: () -> Content
     @State private var state: MarqueeState = .idle
@@ -72,7 +73,14 @@ public struct Marquee<Content> : View where Content : View {
     private func offsetX(proxy: GeometryProxy) -> CGFloat {
         switch self.state {
         case .idle:
-            return 0
+            switch idleAlignment {
+            case .center:
+                return 0.5*(proxy.size.width-contentWidth)
+            case .trailing:
+                return proxy.size.width-contentWidth
+            default:
+                return 0
+            }
         case .ready:
             return (direction == .right2left) ? proxy.size.width : -contentWidth
         case .animating:
@@ -89,8 +97,8 @@ public struct Marquee<Content> : View where Content : View {
     }
     
     private func startAnimation(duration: Double, autoreverses: Bool, proxy: GeometryProxy) {
-        let isFit = proxy.size.width > contentWidth
-        if whenNotFit && isFit {
+        let isNotFit = contentWidth < proxy.size.width
+        if stopWhenNotFit && isNotFit {
             stopAnimation()
             return
         }
