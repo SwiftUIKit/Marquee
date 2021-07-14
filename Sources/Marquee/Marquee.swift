@@ -58,13 +58,13 @@ public struct Marquee<Content> : View where Content : View {
             .onDisappear {
                 self.isAppear = false
             }
-            .onChange(of: duration) { [] newDuration in
+            .onValueChange(value: duration) { newDuration in
                 resetAnimation(duration: newDuration, autoreverses: self.autoreverses, proxy: proxy)
             }
-            .onChange(of: autoreverses) { [] newAutoreverses in
+            .onValueChange(value: autoreverses){ newAutoreverses in
                 resetAnimation(duration: self.duration, autoreverses: newAutoreverses, proxy: proxy)
             }
-            .onChange(of: direction) { [] _ in
+            onValueChange(value: direction ) { _ in
                 resetAnimation(duration: duration, autoreverses: autoreverses, proxy: proxy)
             }
         }.clipped()
