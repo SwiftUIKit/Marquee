@@ -82,9 +82,9 @@ public struct Marquee<Content> : View where Content : View {
                 return 0
             }
         case .ready:
-            return (direction == .right2left) ? proxy.size.width : -contentWidth
+            return (direction == .right2left) ? 0 : -contentWidth
         case .animating:
-            return (direction == .right2left) ? -contentWidth : proxy.size.width
+            return (direction == .right2left) ? proxy.size.width - contentWidth : proxy.size.width
         }
     }
     
