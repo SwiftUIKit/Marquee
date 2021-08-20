@@ -80,7 +80,16 @@ public extension View {
         environment(\.marqueeDuration, duration)
     }
 
-    // TODO: docu
+    /// Sets the marquee animation delay to the given value.
+    ///
+    ///     Marquee {
+    ///         Text("Hello World!")
+    ///     }.marqueeDelay(5.0)
+    ///
+    /// - Parameters:
+    ///   - duration: Animation delay, default is `3.0`.
+    ///
+    /// - Returns: A view that has the given value set in its environment.
     func marqueeDelay(_ delay: Double) -> some View {
         environment(\.marqueeDelay, delay)
     }
