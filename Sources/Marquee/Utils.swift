@@ -13,6 +13,10 @@ struct DurationKey: EnvironmentKey {
     static var defaultValue: Double = 2.0
 }
 
+struct DelayKey: EnvironmentKey {
+    static var defaultValue: Double = 3.0
+}
+
 struct AutoreversesKey: EnvironmentKey {
     static var defaultValue: Bool = false
 }
@@ -33,6 +37,11 @@ extension EnvironmentValues {
     var marqueeDuration: Double {
         get {self[DurationKey.self]}
         set {self[DurationKey.self] = newValue}
+    }
+
+    var marqueeDelay: Double {
+        get {self[DelayKey.self]}
+        set {self[DelayKey.self] = newValue}
     }
     
     var marqueeAutoreverses: Bool {
@@ -69,6 +78,11 @@ public extension View {
     /// - Returns: A view that has the given value set in its environment.
     func marqueeDuration(_ duration: Double) -> some View {
         environment(\.marqueeDuration, duration)
+    }
+
+    // TODO: docu
+    func marqueeDelay(_ delay: Double) -> some View {
+        environment(\.marqueeDelay, delay)
     }
     
     /// Sets the marquee animation autoreverses to the given value.
