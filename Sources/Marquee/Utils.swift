@@ -33,6 +33,10 @@ struct AlignmentKey: EnvironmentKey {
     static var defaultValue: HorizontalAlignment = .leading
 }
 
+struct BoundaryKey: EnvironmentKey {
+    static var defaultValue: MarqueeBoundary = .outer
+}
+
 extension EnvironmentValues {
     var marqueeDuration: Double {
         get {self[DurationKey.self]}
@@ -62,6 +66,11 @@ extension EnvironmentValues {
     var marqueeIdleAlignment: HorizontalAlignment {
         get {self[AlignmentKey.self]}
         set {self[AlignmentKey.self] = newValue}
+    }
+
+    var marqueeBoundary: MarqueeBoundary {
+        get {self[BoundaryKey.self]}
+        set {self[BoundaryKey.self] = newValue}
     }
 }
 
@@ -149,6 +158,20 @@ public extension View {
     func marqueeIdleAlignment(_ alignment: HorizontalAlignment) -> some View {
         environment(\.marqueeIdleAlignment, alignment)
     }
+
+    /// Sets the marquee boundaries to the given value
+    ///
+    ///     Marquee {
+    ///         Text("Hello World!")
+    ///     }.marqueeBoundary(.inner)
+    ///
+    /// - Parameters:
+    ///   - boundary: Boundary when the animation will be finished. See `MarqueeBoundary` for possible values, default is `.outer`.
+    ///
+    /// - Returns: A view that has the given value set in its environment.
+    func marqueeBoundary(_ boundary: MarqueeBoundary) -> some View {
+        environment(\.marqueeBoundary, boundary)
+    }
 }
 
 struct GeometryBackground: View {
@@ -181,7 +204,7 @@ extension View {
     func myOffset(x: CGFloat, y: CGFloat) -> some View {
         return modifier(_OffsetEffect(offset: CGSize(width: x, height: y)))
     }
-
+    
     func myOffset(_ offset: CGSize) -> some View {
         return modifier(_OffsetEffect(offset: offset))
     }
