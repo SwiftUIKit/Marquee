@@ -20,6 +20,7 @@ private enum MarqueeState {
 
 public struct Marquee<Content> : View where Content : View {
     @Environment(\.marqueeDuration) var duration
+    @Environment(\.marqueeDelay) var delay
     @Environment(\.marqueeAutoreverses) var autoreverses: Bool
     @Environment(\.marqueeDirection) var direction: MarqueeDirection
     @Environment(\.marqueeWhenNotFit) var stopWhenNotFit: Bool
@@ -49,23 +50,23 @@ public struct Marquee<Content> : View where Content : View {
             }
             .onPreferenceChange(WidthKey.self, perform: { value in
                 self.contentWidth = value
-                resetAnimation(duration: duration, autoreverses: autoreverses, proxy: proxy)
+                resetAnimation(duration: duration, delay: delay, autoreverses: autoreverses, proxy: proxy)
             })
             .onAppear {
                 self.isAppear = true
-                resetAnimation(duration: duration, autoreverses: autoreverses, proxy: proxy)
+                resetAnimation(duration: duration, delay: delay, autoreverses: autoreverses, proxy: proxy)
             }
             .onDisappear {
                 self.isAppear = false
             }
             .onChange(of: duration) { [] newDuration in
-                resetAnimation(duration: newDuration, autoreverses: self.autoreverses, proxy: proxy)
+                resetAnimation(duration: newDuration, delay: delay, autoreverses: self.autoreverses, proxy: proxy)
             }
             .onChange(of: autoreverses) { [] newAutoreverses in
-                resetAnimation(duration: self.duration, autoreverses: newAutoreverses, proxy: proxy)
+                resetAnimation(duration: self.duration, delay: delay, autoreverses: newAutoreverses, proxy: proxy)
             }
             .onChange(of: direction) { [] _ in
-                resetAnimation(duration: duration, autoreverses: autoreverses, proxy: proxy)
+                resetAnimation(duration: duration, delay: delay, autoreverses: autoreverses, proxy: proxy)
             }
         }.clipped()
     }
@@ -88,15 +89,15 @@ public struct Marquee<Content> : View where Content : View {
         }
     }
     
-    private func resetAnimation(duration: Double, autoreverses: Bool, proxy: GeometryProxy) {
+    private func resetAnimation(duration: Double, delay: Double, autoreverses: Bool, proxy: GeometryProxy) {
         if duration == 0 || duration == Double.infinity {
             stopAnimation()
         } else {
-            startAnimation(duration: duration, autoreverses: autoreverses, proxy: proxy)
+            startAnimation(duration: duration, delay: delay, autoreverses: autoreverses, proxy: proxy)
         }
     }
     
-    private func startAnimation(duration: Double, autoreverses: Bool, proxy: GeometryProxy) {
+    private func startAnimation(duration: Double, delay: Double, autoreverses: Bool, proxy: GeometryProxy) {
         let isNotFit = contentWidth < proxy.size.width
         if stopWhenNotFit && isNotFit {
             stopAnimation()
@@ -105,7 +106,11 @@ public struct Marquee<Content> : View where Content : View {
         
         withAnimation(.instant) {
             self.state = .ready
-            withAnimation(Animation.linear(duration: duration).repeatForever(autoreverses: autoreverses)) {
+            let animation = Animation
+                .linear(duration: duration)
+                .delay(delay)
+                .repeatForever(autoreverses: autoreverses)
+            withAnimation(animation) {
                 self.state = .animating
             }
         }
@@ -125,5 +130,6 @@ struct Marquee_Previews: PreviewProvider {
                 .fontWeight(.bold)
                 .font(.system(size: 40))
         }
+        .marqueeDelay(0.5)
     }
 }
